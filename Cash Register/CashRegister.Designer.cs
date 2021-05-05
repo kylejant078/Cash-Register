@@ -408,7 +408,7 @@ namespace Cash_Register
             this.labelEasterEgg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labelEasterEgg.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEasterEgg.ForeColor = System.Drawing.Color.White;
-            this.labelEasterEgg.Location = new System.Drawing.Point(-1, 307);
+            this.labelEasterEgg.Location = new System.Drawing.Point(1, 313);
             this.labelEasterEgg.Name = "labelEasterEgg";
             this.labelEasterEgg.Size = new System.Drawing.Size(617, 31);
             this.labelEasterEgg.TabIndex = 30;

@@ -69,6 +69,7 @@ namespace Cash_Register
         private void calculateTotal_Click(object sender, EventArgs e)
         {
             //SECTION 2
+            
             //Play first cashregister sound
             SoundPlayer player = new SoundPlayer(Properties.Resources.registersound);
             player.Play();
@@ -146,13 +147,50 @@ namespace Cash_Register
                 return;
 
             }
-            //If no errors have occured continue to calculate Sub Total, Tax and Total
             order = (drinkPrice * numberDrink) + (donutPrice * numberDonut) + (sandwichPrice * numberSandwich);
-            labelSubtotal.Text += $"             {order.ToString("C")}";
-            orderTax = taxRate * order;
-            labelTax.Text += $"                      {orderTax.ToString("C")}";
-            orderTotal = order + orderTax;
-            labelTotal.Text += $"                   {orderTotal.ToString("C")}";
+            //if any item is entered as a negative number, then force user to reenter
+            if (numberDrink >= 0 && numberDonut >=0 && numberSandwich >=0)
+                
+            {
+                //Show the next part if there are no errors
+                labelError.Visible = false;
+                labelSubtotal.Visible = true;
+                labelTax.Visible = true;
+                labelTotal.Visible = true;
+                blackLine.Visible = true;
+                tenderedAmount.Visible = true;
+                calculateChange.Visible = true;
+                labelTendered.Visible = true;
+                labelSubtotal.Text += $"             {order.ToString("C")}";
+                orderTax = taxRate * order;
+                labelTax.Text += $"                      {orderTax.ToString("C")}";
+                orderTotal = order + orderTax;
+                labelTotal.Text += $"                   {orderTotal.ToString("C")}";
+            }
+            else
+            {
+                //play error sound, show error message and don't show next part and force user to reenter their input
+                SoundPlayer errorplayer = new SoundPlayer(Properties.Resources.error);
+                errorplayer.Play();
+                labelError.Visible = true;
+                labelError.Text = "*You must use positive numbers*";
+                labelSubtotal.Visible = false;
+                labelTax.Visible = false;
+                labelTotal.Visible = false;
+                blackLine.Visible = false;
+                tenderedAmount.Visible = false;
+                calculateChange.Visible = false;
+                labelTendered.Visible = false;
+                drinksNumber.Visible = true;
+                donutsNumber.Visible = true;
+                sandwichesNumber.Visible = true;
+                calculateTotal.Visible = true;
+
+                drinksNumber.Text = "0";
+                donutsNumber.Text = "0";
+                sandwichesNumber.Text = "0";
+            }
+            
         }
         private void calculateChange_Click(object sender, EventArgs e)
         {
@@ -166,7 +204,7 @@ namespace Cash_Register
             {
                 //Look for error where user uses letters instead of numbers
                 amountTendered = Convert.ToDouble(tenderedAmount.Text);
-                changeTotal = amountTendered - orderTotal;
+                changeTotal = Math.Round(amountTendered - orderTotal,2); //Rounded this because when change was exactly zero it would cause an error rather than calculate zero change
                 labelChange.Text += $"                {changeTotal.ToString("C")}";
             }
             catch
