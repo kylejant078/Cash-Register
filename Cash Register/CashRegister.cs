@@ -93,9 +93,9 @@ namespace Cash_Register
             try
             {
                 //calculate totals using these variables
-                numberDrink = Convert.ToDouble(drinksNumber.Text);
-                numberDonut = Convert.ToDouble(donutsNumber.Text);
-                numberSandwich = Convert.ToDouble(sandwichesNumber.Text);
+                numberDrink = Math.Round(Convert.ToDouble(drinksNumber.Text), 0);
+                numberDonut = Math.Round(Convert.ToDouble(donutsNumber.Text), 0);
+                numberSandwich = Math.Round(Convert.ToDouble(sandwichesNumber.Text), 0);
             }
             catch
             {
@@ -275,21 +275,21 @@ namespace Cash_Register
             //dont print drink line if there are no drinks
             if (numberDrink > 0)
             {
-                receipt.Text += $"\nDrinks      x{drinksNumber.Text} @2.39      ";
+                receipt.Text += $"\nDrinks      x{numberDrink} @2.39      ";
                 Refresh();
                 Thread.Sleep(500);
             }
             //dont print donut line if ther are no donuts
             if (numberDonut > 0)
             {
-                receipt.Text += $"\nDonuts      x{donutsNumber.Text} @1.19      ";
+                receipt.Text += $"\nDonuts      x{numberDonut} @1.19      ";
                 Refresh();
                 Thread.Sleep(500);
             }
             //dont print sandwich line if there are no sandwiches
             if (numberSandwich > 0)
             {
-                receipt.Text += $"\nSandwiches  x{sandwichesNumber.Text} @4.29      ";
+                receipt.Text += $"\nSandwiches  x{numberSandwich} @4.29      ";
                 Refresh();
                 Thread.Sleep(500);
             }
